@@ -14,7 +14,7 @@ const Home = () => {
   const getAllTodos = async () => {
     try {
       const { data } = await axios.get(`${server}/todo/`);
-      setTodos(data);
+      setTodos(data.allTodos);
       console.log(data);
     } catch (error) {
       toast.error(error.message);
