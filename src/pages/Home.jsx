@@ -23,7 +23,6 @@ const Home = () => {
 
   useEffect(() => {
     getAllTodos();
-    // setTodos(data);
   }, [refresh]);
 
   const createTodo = async (e) => {
