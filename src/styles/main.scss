@@ -1,0 +1,16 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.link{
+    text-decoration: none;
+}
+.container{
+    width: 300px;
+    display: block;
+    margin: auto;
+    padding-top: 10px
+}
+
+@import 'header';
+@import 'home';
