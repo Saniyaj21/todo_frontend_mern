@@ -22,8 +22,8 @@ const Edit = () => {
   }
 
   useEffect(() => {
-   getTodo(id)
-  }, [id]);
+   getTodo(_id)
+  }, [_id]);
 
   const editTodo = async(e, _id) => {
     console.log(_id, typeof(_id))
