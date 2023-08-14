@@ -20,4 +20,4 @@ function App() {
 
 export default App;
 
-export const server = "https://todo-app-benw.onrender.com/api/"
+export const server = "https://todo-app-benw.onrender.com/api"
