@@ -83,15 +83,14 @@ const Home = () => {
       </div>
 
       {todos.map((todo) => (
-        <div>
-          console.log(todo._id)
+       
           <TodoItems
             id={todo._id}
             title={todo.title}
             deleteTodo={deleteTodo}
             key={todo._id}
           />
-        </>
+       
       ))}
     </div>
   );
