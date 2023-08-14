@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 
 const TodoItems = ({_id , title, deleteTodo}) => {
+  
+  console.log(_id)
   return (
     <div className="todos">
         <div className="items">
