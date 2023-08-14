@@ -81,16 +81,15 @@ const Home = () => {
         </form>
       </div>
 
-      {todos.map((todo) => {
-        return (
+      {todos.map((todo) => (
           <TodoItems
             id={todo.id}
             title={todo.title}
             deleteTodo={deleteTodo}
             key={todo.id}
           />
-        );
-      })}
+        )
+      )}
     </div>
   );
 };
