@@ -1,30 +1,65 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { useNavigate,useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import {server} from '../App'
 
 const Edit = () => {
+  const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const { id } = useParams();
 
-  const {id} = useParams() 
-  console.log(id)
-
-  // one will be get by id and one will be patch request here
-
-  const navigate = useNavigate()
-
-  const editTodo =(e)=>{
-    e.preventDefault();
-    console.log("edit saved")
-    navigate('/')
+  const getTodo = async (id) =>{
+    try {
+      const { data } = await axios.get(`${server}/todo/${id}`);
+      setTitle(data.title);
+      console.log(data);
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
+
+  useEffect(() => {
+   getTodo(id)
+  }, [id]);
+
+  const editTodo = async(e, id) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.patch(
+        `${server}/task/${id}`,
+        {
+          title
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      toast.success(data.message);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="container">
       <div className="form">
         <form action="">
           <h4>Edit Todo</h4>
-          <input id="edit-input" type="text" placeholder="Enter a todo.." />
-          <Link  to={'/'}><button onClick={editTodo} type="submit">Save</button></Link>
+          <input
+            onChange={(e) => setTitle(e.target.value)}
+            id="edit-input"
+            type="text"
+            value={title}
+          />
+          <Link to={"/"}>
+            <button onClick={editTodo} type="submit">
+              Save
+            </button>
+          </Link>
         </form>
       </div>
     </div>
