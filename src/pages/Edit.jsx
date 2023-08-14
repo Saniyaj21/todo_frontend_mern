@@ -8,7 +8,8 @@ import {server} from '../App'
 const Edit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const { _id } = useParams();
+  const params = useParams();
+  console.log(params, params._id)
 
   const getTodo = async (_id) =>{
     try {
