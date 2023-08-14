@@ -6,7 +6,7 @@ const TodoItems = ({_id , title, deleteTodo}) => {
   return (
     <div className="todos">
         <div className="items">
-          <div className="todo-text">{title} {_id}...</div>
+          <div className="todo-text">{title} {_id}</div>
           <div className="todo-buttons">
             <Link to={`/edit/${_id}`}><button>Edit</button></Link>
             <button onClick={()=>deleteTodo(_id)} id="delete">Delete</button>
