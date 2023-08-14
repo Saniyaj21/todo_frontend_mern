@@ -12,6 +12,7 @@ const Edit = () => {
 
   const getTodo = async (id) =>{
     try {
+      console.log(id, typeof(id))
       const { data } = await axios.get(`${server}/todo/${id}`);
       setTitle(data.title);
       console.log(data);
@@ -25,8 +26,10 @@ const Edit = () => {
   }, [id]);
 
   const editTodo = async(e, id) => {
+    console.log(id, typeof(id))
     e.preventDefault();
     try {
+      console.log(id, typeof(id))
       const { data } = await axios.patch(
         `${server}/task/${id}`,
         {

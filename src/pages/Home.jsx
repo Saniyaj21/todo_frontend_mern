@@ -52,7 +52,9 @@ const Home = () => {
   };
 
   const deleteTodo = async (id) => {
+      
     try {
+      console.log(id, typeof(id))
       const { data } = await axios.delete(`${server}/todo/${id}`, {
         withCredentials: true,
       });
