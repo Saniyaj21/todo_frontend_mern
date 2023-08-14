@@ -3,29 +3,66 @@ import TodoItems from "../components/TodoItems";
 import axios from "axios";
 import { server } from "../App";
 import { useState, useEffect } from "react";
-import data from "../data.json";
+import { toast } from "react-hot-toast";
 
 const Home = () => {
   const [todos, setTodos] = useState([]);
+  const [title, setTitle] = useState("");
+  const [refresh, setRefresh] = useState(false);
 
- // get all todos
- const getAllTodos = async () => {
-  const response = await axios.get(`${server}/todo/`);
-  console.log(response);
-};
+  // get all todos
+  const getAllTodos = async () => {
+    try {
+      const { data } = await axios.get(`${server}/todo/`);
+      setTodos(data);
+      console.log(data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
-    // getAllTodos()
-    // delete todo get id from dodoitems pass be func reference in that
+    getAllTodos();
+    // setTodos(data);
+  }, [refresh]);
 
-    setTodos(data);
-    // console.log(data);
-    // console.log(todos);
-  }, []);
-
-  const createTodo = (e) => {
+  const createTodo = async (e) => {
     e.preventDefault();
-    console.log("create");
+    try {
+      const { data } = await axios.post(
+        `${server}/todo/`,
+        {
+          title,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setTitle("");
+
+      toast.success(data.message);
+
+      setRefresh((prev) => !prev);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const deleteTodo = async (id) => {
+    try {
+      const { data } = await axios.delete(`${server}/todo/${id}`, {
+        withCredentials: true,
+      });
+
+      toast.success(data.message);
+      setRefresh((prev) => !prev);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -33,7 +70,12 @@ const Home = () => {
       <div className="form">
         <form action="">
           <h4>Create Todo</h4>
-          <input type="text" placeholder="Enter a todo.." />
+          <input
+            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            placeholder="Enter a todo.."
+            value={title}
+          />
           <button onClick={createTodo} type="submit">
             Create
           </button>
@@ -41,7 +83,14 @@ const Home = () => {
       </div>
 
       {todos.map((todo) => {
-        return <TodoItems id={todo.id} title={todo.title} />;
+        return (
+          <TodoItems
+            id={todo.id}
+            title={todo.title}
+            deleteTodo={deleteTodo}
+            key={todo.id}
+          />
+        );
       })}
     </div>
   );
