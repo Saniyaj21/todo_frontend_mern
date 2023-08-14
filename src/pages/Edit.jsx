@@ -8,14 +8,14 @@ import {server} from '../App'
 const Edit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const { id } = useParams();
+  const { _id } = useParams();
 
-  const getTodo = async (id) =>{
+  const getTodo = async (_id) =>{
     try {
-      console.log(id, typeof(id))
-      const { data } = await axios.get(`${server}/todo/${id}`);
-      setTitle(data.title);
+      console.log(_id, typeof(_id))
+      const { data } = await axios.get(`${server}/todo/${_id}`);
       console.log(data);
+      setTitle(data.title);
     } catch (error) {
       toast.error(error.message);
     }
@@ -25,13 +25,13 @@ const Edit = () => {
    getTodo(id)
   }, [id]);
 
-  const editTodo = async(e, id) => {
-    console.log(id, typeof(id))
+  const editTodo = async(e, _id) => {
+    console.log(_id, typeof(_id))
     e.preventDefault();
     try {
-      console.log(id, typeof(id))
+      console.log(_id, typeof(_id))
       const { data } = await axios.patch(
-        `${server}/task/${id}`,
+        `${server}/task/${_id}`,
         {
           title
         },
