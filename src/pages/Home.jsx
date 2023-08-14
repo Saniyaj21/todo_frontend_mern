@@ -88,7 +88,7 @@ const Home = () => {
             id={todo._id}
             title={todo.title}
             deleteTodo={deleteTodo}
-            key={todo.id}
+            key={todo._id}
           />
         )
       )}
