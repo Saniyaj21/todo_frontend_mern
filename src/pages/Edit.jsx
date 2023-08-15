@@ -32,7 +32,7 @@ const Edit = () => {
       const { data } = await axios.patch(
         `${server}/todo/${id}`,
         {
-          todoTitle
+          title:todoTitle
         },
         {
           withCredentials: true,
