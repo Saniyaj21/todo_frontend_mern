@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const TodoItems = ({id , title, deleteTodo}) => {
+const TodoItems = ({id , title, deleteTodo, loading}) => {
 
   console.log(id)
   return (
@@ -9,7 +9,7 @@ const TodoItems = ({id , title, deleteTodo}) => {
           <div className="todo-text">{title}</div>
           <div className="todo-buttons">
             <Link to={`/edit/${id}`}><button>Edit</button></Link>
-            <button onClick={()=>deleteTodo(id)} id="delete">Delete</button>
+            <button onClick={()=>deleteTodo(id)} disabled={loading} id="delete">Delete</button>
           </div>
         </div>
       </div>

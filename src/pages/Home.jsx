@@ -9,6 +9,7 @@ const Home = () => {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // get all todos
   const getAllTodos = async () => {
@@ -28,6 +29,7 @@ const Home = () => {
   const createTodo = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const { data } = await axios.post(
         `${server}/todo/`,
         {
@@ -45,23 +47,28 @@ const Home = () => {
 
       toast.success(data.message);
 
+      setLoading(false)
       setRefresh((prev) => !prev);
     } catch (error) {
       toast.error(error.message);
+      setLoading(false)
     }
   };
 
   const deleteTodo = async (id) => {
     try {
+      setLoading(true)
       console.log(id, typeof id);
       const { data } = await axios.delete(`${server}/todo/${id}`, {
         withCredentials: true,
       });
 
       toast.success(data.message);
+      setLoading(false)
       setRefresh((prev) => !prev);
     } catch (error) {
       toast.error(error.message);
+      setLoading(false)
     }
   };
 
@@ -76,7 +83,7 @@ const Home = () => {
             placeholder="Enter a todo.."
             value={title}
           />
-          <button onClick={createTodo} type="submit">
+          <button onClick={createTodo} disabled={loading} type="submit">
             Create
           </button>
         </form>
@@ -89,6 +96,7 @@ const Home = () => {
             title={todo.title}
             deleteTodo={deleteTodo}
             key={todo._id}
+            loading ={loading}
           />
        
       ))}
