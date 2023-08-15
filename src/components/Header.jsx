@@ -8,7 +8,7 @@ const Header = () => {
         <div className="logo">Todo App.</div>
       </Link>
       <div className="menu">
-        <a className="link" href="">
+        <a className="link" href="https://saniyajmallik.vercel.app/" target="_blank">
           About Me
         </a>
       </div>
