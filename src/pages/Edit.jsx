@@ -26,7 +26,7 @@ const Edit = () => {
    getTodo(id)
   }, [id]);
 
-  const editTodo = async(e,id) => {
+  const editTodo = async(e) => {
     e.preventDefault();
     try {
       const { data } = await axios.patch(
@@ -58,7 +58,7 @@ const Edit = () => {
             value={todoTitle}
           />
           <Link to={"/"}>
-            <button onClick={(e) => editTodo(e,id)} type="submit">
+            <button onClick={editTodo} type="submit">
               Save
             </button>
           </Link>
