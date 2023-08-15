@@ -7,7 +7,7 @@ import {server} from '../App'
 
 const Edit = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
+  const [todoTitle, setTitle] = useState("");
   const params = useParams();
   let id = params.id
 
@@ -15,8 +15,8 @@ const Edit = () => {
     try {
       const { data } = await axios.get(`${server}/todo/${id}`);
       console.log("Requested data..******",data);
-      console.log("Requested data.todo.title******",data.todo.title);
-      setTitle(data.todo.title);
+      console.log("Requested data.todo.title******",data.todo[0].title);
+      setTitle(data.todo[0].title);
     } catch (error) {
       toast.error(error.message);
     }
@@ -32,7 +32,7 @@ const Edit = () => {
       const { data } = await axios.patch(
         `${server}/task/${id}`,
         {
-          title
+          todoTitle
         },
         {
           withCredentials: true,
@@ -55,7 +55,7 @@ const Edit = () => {
             onChange={(e) => setTitle(e.target.value)}
             id="edit-input"
             type="text"
-            value={title}
+            value={todoTitle}
           />
           <Link to={"/"}>
             <button onClick={editTodo} type="submit">
