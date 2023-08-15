@@ -18,7 +18,7 @@ const Edit = () => {
       console.log(id, typeof(id))
       const { data } = await axios.get(`${server}/todo/${id}`);
       console.log(data);
-      setTitle(data.title);
+      setTitle(data.todo.title);
     } catch (error) {
       toast.error(error.message);
     }
