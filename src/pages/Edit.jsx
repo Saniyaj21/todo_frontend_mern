@@ -9,15 +9,13 @@ const Edit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const params = useParams();
-  console.log(params, params.id)
   let id = params.id
-  console.log("id is..", id)
 
   const getTodo = async (id) =>{
     try {
-      console.log(id, typeof(id))
       const { data } = await axios.get(`${server}/todo/${id}`);
-      console.log(data);
+      console.log("Requested data..******",data);
+      console.log("Requested data.todo.title******",data.todo.title);
       setTitle(data.todo.title);
     } catch (error) {
       toast.error(error.message);
@@ -29,10 +27,8 @@ const Edit = () => {
   }, [id]);
 
   const editTodo = async(e, id) => {
-    console.log(id, typeof(id))
     e.preventDefault();
     try {
-      console.log(id, typeof(id))
       const { data } = await axios.patch(
         `${server}/task/${id}`,
         {
