@@ -8,17 +8,19 @@ import {server} from '../App'
 const Edit = () => {
   const navigate = useNavigate();
   const [todoTitle, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
   const params = useParams();
   let id = params.id
 
   const getTodo = async (id) =>{
     try {
+      setLoading(true)
       const { data } = await axios.get(`${server}/todo/${id}`);
-      console.log("Requested data..******",data);
-      console.log("Requested data.todo.title******",data.todo[0].title);
       setTitle(data.todo[0].title);
+      setLoading(false)
     } catch (error) {
       toast.error(error.message);
+      setLoading(false)
     }
   }
 
@@ -29,6 +31,7 @@ const Edit = () => {
   const editTodo = async(e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const { data } = await axios.patch(
         `${server}/todo/${id}`,
         {
@@ -40,9 +43,11 @@ const Edit = () => {
       );
 
       toast.success(data.message);
+      setLoading(false)
       navigate("/");
     } catch (error) {
       toast.error(error.message);
+      setLoading(false)
     }
   };
 
@@ -58,7 +63,7 @@ const Edit = () => {
             value={todoTitle}
           />
           <Link to={"/"}>
-            <button onClick={editTodo} type="submit">
+            <button onClick={editTodo} disabled={loading} type="submit">
               Save
             </button>
           </Link>

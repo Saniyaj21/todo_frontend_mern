@@ -39,9 +39,7 @@
         border: 1px solid  rgba(0, 0, 0, 0.751);
         border-radius: 5px;
         padding: 4px;
-        .todo-text{
-            color: red;
-        }
+        
         .todo-buttons{
             width: 100%;
             button{
@@ -49,7 +47,7 @@
                 border-radius: 5px;
                 border: 1px solid white;
                 width: 40%;
-                height: 25px;
+                height: 30px;
                 margin: 5%;
                 margin-bottom: 5px;
             }
