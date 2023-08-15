@@ -30,7 +30,7 @@ const Edit = () => {
     e.preventDefault();
     try {
       const { data } = await axios.patch(
-        `${server}/task/${id}`,
+        `${server}/todo/${id}`,
         {
           todoTitle
         },
