@@ -9,12 +9,14 @@ const Edit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const params = useParams();
-  console.log(params, params._id)
+  console.log(params, params.id)
+  let id = params.id
+  console.log("id is..", id)
 
-  const getTodo = async (_id) =>{
+  const getTodo = async (id) =>{
     try {
-      console.log(_id, typeof(_id))
-      const { data } = await axios.get(`${server}/todo/${_id}`);
+      console.log(id, typeof(id))
+      const { data } = await axios.get(`${server}/todo/${id}`);
       console.log(data);
       setTitle(data.title);
     } catch (error) {
@@ -23,16 +25,16 @@ const Edit = () => {
   }
 
   useEffect(() => {
-   getTodo(_id)
-  }, [_id]);
+   getTodo(id)
+  }, [id]);
 
-  const editTodo = async(e, _id) => {
-    console.log(_id, typeof(_id))
+  const editTodo = async(e, id) => {
+    console.log(id, typeof(id))
     e.preventDefault();
     try {
-      console.log(_id, typeof(_id))
+      console.log(id, typeof(id))
       const { data } = await axios.patch(
-        `${server}/task/${_id}`,
+        `${server}/task/${id}`,
         {
           title
         },
