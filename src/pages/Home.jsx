@@ -51,10 +51,10 @@ const Home = () => {
     }
   };
 
-  const deleteTodo = async (_id) => {
+  const deleteTodo = async (id) => {
     try {
-      console.log(_id, typeof _id);
-      const { data } = await axios.delete(`${server}/todo/${_id}`, {
+      console.log(id, typeof id);
+      const { data } = await axios.delete(`${server}/todo/${id}`, {
         withCredentials: true,
       });
 
@@ -85,7 +85,7 @@ const Home = () => {
       {todos.map((todo) => (
        
           <TodoItems
-            _id={todo._id}
+            id={todo._id}
             title={todo.title}
             deleteTodo={deleteTodo}
             key={todo._id}
